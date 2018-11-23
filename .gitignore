@@ -44,6 +44,7 @@ build/
 kotlin-ultimate/
 .idea/kotlinc.xml
 .idea/vcs.xml
+.idea/workspace.xml
 **/gradle-wrapper.jar
 node_modules
 
