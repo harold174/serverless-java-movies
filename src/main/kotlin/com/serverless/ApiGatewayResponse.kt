@@ -37,6 +37,7 @@ class ApiGatewayResponse(
       }
       else if (objectBody != null) {
         try {
+          objectBody = HelloResponse("pruebita", Collections.emptyMap())
           body = objectMapper.writeValueAsString(objectBody)
         } catch (e: JsonProcessingException) {
           LOG.error("failed to serialize object", e)
