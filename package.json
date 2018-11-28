@@ -1,0 +1,12 @@
+{
+  "name": "aws-kotlin-jvm-gradle",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-sam": "^0.2.0"
+  },
+  "scripts": {
+    "getHelloEvent": "gradle build shadowJar -x test; sam local invoke Hello -e src/test/resources/eventHelloGET.json"
+  }
+}
