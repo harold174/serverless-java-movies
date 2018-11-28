@@ -16,7 +16,7 @@ After that, you can create your boilerplate, in this case using kotlin and gradl
 serverless create —-template aws-kotlin-jvm-gradle --path your_service
 ```
 
-Next step is configuring AWS credentials that are going to be stored in /home/.aws/credentials file
+Next step is configuring AWS credentials that are going to be stored in `/home/.aws/credentials` file
 
 Finally, you can deploy it to AWS Lambda. 
 ```
@@ -27,22 +27,20 @@ With this task, serverless framework is going to perform several tasks:
 1. Upload your code to s3 storage.
 2. Provision the required resources with cloud formation.
 3. Create the lambda function.
-4. Create and parametrize the API Gateway according to the mapping routes that could be found in the serverless.yml file.
+4. Create and parametrize the API Gateway according to the mapping routes that could be found in the `serverless.yml` file.
 
 ## Local Testing
 
-You can test your project in your local environment using SAM Local. To achieve that you will need to install a sam plugin to your serverless npm package installed former. This plugin is going to give us the capability to transform our serverless.yml into template.yml. The last one is going to be understandable by SAM Local.
+You can test your project in your local environment using SAM Local. To achieve that you will need to install a sam plugin to your serverless npm package installed former. This plugin is going to give us the capability to transform our `serverless.yml` into `template.yml`. The last one is going to be understandable by SAM Local.
 
 ```
 sls plugin install --name serverless-sam
 ```
-Now, you should be able to 
-
-Builds the fatJar.
+Now, you should be able to Builds the fatJar.
 ```
 gradle build shadowJar -x test
 ```
-Export and invoke your functions
+Export your serverless.yml to template.yml and finally invoke your functions locally
 ```
 sls sam export -o template.yml
 sam local invoke FunctionName <<< "{}" # JSON Event
@@ -62,21 +60,19 @@ A gradle script could become in handy...
   "getHelloEvent": "gradle build shadowJar -x test; sam local invoke Hello -e src/test/resources/testRequest.json"
 },
 ```
-And run it
-
+And then you can run it
 ```
 npm run getHelloEvent
 ```
 One of the most important futures of SAM Local is the possibility to test your endpoints running your local server
-
 ```
 sam local start-api
 ```
 ## Multiple serverless microservices sharing one API GATEWAY
 
-By default, each serverless project will create an API GATEWAY. However, you can change this behavior changing some serverless.yml configurations.
+By default, each serverless project will create an API GATEWAY. However, you can change this behavior changing some `serverless.yml` configurations.
 
-In the provider item, you are going to add the restApiId and the restApiRootResourceId. The first refers to the API id that you can see on aws api gateway and the second one refers to the root path of the API.
+In the provider item, you are going to add the `restApiId` and the `restApiRootResourceId`. The first refers to the API id that you can see on aws api gateway and the second one refers to the root path of the API.
 
 ```
 provider:
