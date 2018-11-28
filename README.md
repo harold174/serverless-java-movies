@@ -68,9 +68,9 @@ One of the most important futures of SAM Local is the possibility to test your e
 ```
 sam local start-api
 ```
-## Multiple serverless microservices sharing one API GATEWAY
+## Multiple serverless microservices sharing one Api Gateway
 
-By default, each serverless project will create an API GATEWAY. However, you can change this behavior changing some `serverless.yml` configurations.
+By default, each serverless project will create an Api Gateway. However, you can change this behavior changing some `serverless.yml` configurations.
 
 In the provider item, you are going to add the `restApiId` and the `restApiRootResourceId`. The first refers to the API id that you can see on aws api gateway and the second one refers to the root path of the API.
 
