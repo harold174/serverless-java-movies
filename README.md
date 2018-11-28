@@ -1,4 +1,4 @@
-# Java serverless example + AWS Lambda + API Gateway
+# Java serverless movies example + AWS Lambda + API Gateway
 
 ## Configuration
 
