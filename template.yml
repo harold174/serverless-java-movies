@@ -2,23 +2,51 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: 'SAM template for Serverless framework service: '
 Resources:
-  Hello:
+  Posts:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: com.serverless.Handler
       Runtime: java8
       CodeUri: build/libs/hello-dev-all.jar
-      MemorySize: 1472
-      Timeout: 3
+      MemorySize: 1024
+      Timeout: 10
       Events:
         Event1:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /movies
             Method: get
             RestApiId:
-              Ref: AwsKotlinJvmGradle
-  AwsKotlinJvmGradle:
+              Ref: Movies
+        Event2:
+          Type: Api
+          Properties:
+            Path: '/movies/{id}'
+            Method: get
+            RestApiId:
+              Ref: Movies
+        Event3:
+          Type: Api
+          Properties:
+            Path: /movies
+            Method: post
+            RestApiId:
+              Ref: Movies
+        Event4:
+          Type: Api
+          Properties:
+            Path: /movies
+            Method: put
+            RestApiId:
+              Ref: Movies
+        Event5:
+          Type: Api
+          Properties:
+            Path: '/movies/{id}'
+            Method: delete
+            RestApiId:
+              Ref: Movies
+  Movies:
     Type: 'AWS::Serverless::Api'
     Properties:
       StageName: dev
@@ -28,21 +56,54 @@ Resources:
           title:
             Ref: 'AWS::StackName'
         paths:
-          /hello:
+          /movies:
             get:
               x-amazon-apigateway-integration:
                 httpMethod: POST
                 type: aws_proxy
                 uri:
                   'Fn::Sub': >-
-                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Hello.Arn}/invocations
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Posts.Arn}/invocations
               responses: {}
-  HelloLambdaPermission:
+            post:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Posts.Arn}/invocations
+              responses: {}
+            put:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Posts.Arn}/invocations
+              responses: {}
+          '/movies/{id}':
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Posts.Arn}/invocations
+              responses: {}
+            delete:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Posts.Arn}/invocations
+              responses: {}
+  PostsLambdaPermission:
     Type: 'AWS::Lambda::Permission'
     DependsOn:
-      - Hello
+      - Posts
     Properties:
       Action: 'lambda:InvokeFunction'
       FunctionName:
-        Ref: Hello
+        Ref: Posts
       Principal: apigateway.amazonaws.com
