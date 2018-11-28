@@ -1,3 +1,3 @@
 package com.serverless
 
-open class Response()
+interface Response

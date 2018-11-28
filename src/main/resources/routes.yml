@@ -1,0 +1,36 @@
+routes:
+# =========================
+# Movies Microservice
+# =========================
+
+- regex: '^/movies(/*+)?$'
+  cls: com.movies.controllers.MovieController
+  func: movie
+
+# =========================
+# User Microservice
+# =========================
+
+- regex: '^/login(/)?$'
+  cls: com.users.controllers.UserController
+  func: login
+- regex: '^/logout(/)?$'
+  cls: com.users.controllers.UserController
+  func: logout
+- regex: '^/signup(/)?$'
+  cls: com.users.controllers.UserController
+  func: signup
+
+# =========================
+# Geolocation Microservice
+# =========================
+
+- regex: '^/location/country(/*+)?$'
+  cls: com.geolocation.controllers.LocationController
+  func: country
+- regex: '^/location/region(/*+)?$'
+  cls: com.geolocation.controllers.LocationController
+  func: region
+- regex: '^/location/city(/*+)?$'
+  cls: com.geolocation.controllers.LocationController
+  func: region
